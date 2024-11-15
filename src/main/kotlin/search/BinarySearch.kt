@@ -19,8 +19,8 @@ fun IntArray.binarySearch(target: Int): Int {
 
 fun IntArray.binarySearch(
     target: Int,
-    left: Int,
-    right: Int,
+    left: Int = 0,
+    right: Int = lastIndex,
 ): Int {
     if (left <= right) {
         val mid = left + (right - left) / 2

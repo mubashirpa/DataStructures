@@ -11,7 +11,7 @@ fun main() {
 
 fun factorial(n: Int): Int =
     if (n <= 1) {
-        n
+        1
     } else {
         n * factorial(n - 1)
     }
@@ -33,7 +33,7 @@ fun sumOfElements(
 
 tailrec fun sumOfElements(
     array: IntArray,
-    index: Int,
+    index: Int = array.lastIndex,
     sum: Int = 0,
 ): Int = if (index < 0) sum else sumOfElements(array, index - 1, sum + array[index])
 

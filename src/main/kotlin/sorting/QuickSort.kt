@@ -4,6 +4,8 @@ fun IntArray.quickSort(
     low: Int = 0,
     high: Int = lastIndex,
 ) {
+    if (this.size < 2) return
+
     if (low < high) {
         val pivotIndex = partition(low, high)
         quickSort(low, pivotIndex - 1)

@@ -39,12 +39,14 @@ interface Graph<T : Any> {
 
         queue.enqueue(source)
         enqueued.add(source)
+
         while (true) {
             val vertex = queue.dequeue() ?: break
             visited.add(vertex)
+
             val neighborEdges = edges(vertex)
             neighborEdges.forEach {
-                if (!enqueued.contains(it.destination)) {
+                if (it.destination !in enqueued) {
                     queue.enqueue(it.destination)
                     enqueued.add(it.destination)
                 }
@@ -56,22 +58,23 @@ interface Graph<T : Any> {
 
     fun depthFirstSearch(source: Vertex<T>): ArrayList<Vertex<T>> {
         val stack = StackImpl<Vertex<T>>()
-        val visited = arrayListOf<Vertex<T>>()
         val pushed = mutableSetOf<Vertex<T>>()
+        val visited = arrayListOf<Vertex<T>>()
+
         stack.push(source)
         pushed.add(source)
         visited.add(source)
 
         outer@ while (true) {
-            if (stack.isEmpty) break
-            val vertex = stack.peek()!!
+            val vertex = stack.peek() ?: break
             val neighbors = edges(vertex)
             if (neighbors.isEmpty()) {
                 stack.pop()
                 continue
             }
-            for (i in 0 until neighbors.size) {
-                val destination = neighbors[i].destination
+
+            for (v in neighbors) {
+                val destination = v.destination
                 if (destination !in pushed) {
                     stack.push(destination)
                     pushed.add(destination)
@@ -79,6 +82,7 @@ interface Graph<T : Any> {
                     continue@outer
                 }
             }
+
             stack.pop()
         }
 

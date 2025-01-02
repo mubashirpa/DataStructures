@@ -28,23 +28,23 @@ class MaxHeap<T : Comparable<T>>(
     fun remove(): T? {
         if (isEmpty) return null
         Collections.swap(elements, 0, count - 1)
-        val item = elements.removeAt(count - 1)
+        val item = elements.removeLast()
         shiftDown(0)
         return item
     }
 
-    fun remove(index: Int): T? {
-        if (index >= count) return null
-        return if (index == count - 1) {
-            elements.removeAt(count - 1)
-        } else {
-            Collections.swap(elements, index, count - 1)
-            val item = elements.removeAt(count - 1)
-            shiftDown(index)
-            shiftUp(index)
-            item
+    fun remove(index: Int): T? =
+        when {
+            index >= count -> null
+            index == count - 1 -> elements.removeLast()
+            else -> {
+                Collections.swap(elements, index, count - 1)
+                val item = elements.removeLast()
+                shiftDown(index)
+                shiftUp(index)
+                item
+            }
         }
-    }
 
     private fun heapify(values: ArrayList<T>) {
         elements.clear()

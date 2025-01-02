@@ -7,8 +7,8 @@ class SinglyLinkedList<T : Any>() {
         }
     }
 
-    private var head: one.linkedlist.SinglyNode<T>? = null
-    private var tail: one.linkedlist.SinglyNode<T>? = null
+    private var head: SinglyNode<T>? = null
+    private var tail: SinglyNode<T>? = null
     var size = 0
 
     fun isEmpty() = size == 0
@@ -17,27 +17,27 @@ class SinglyLinkedList<T : Any>() {
 
     fun last() = tail
 
-    fun push(value: T): one.linkedlist.SinglyLinkedList<T> =
+    fun push(value: T): SinglyLinkedList<T> =
         apply {
-            val newNode = one.linkedlist.SinglyNode(value = value, next = head)
+            val newNode = SinglyNode(value = value, next = head)
             head = newNode
             if (tail == null) tail = newNode
             size++
         }
 
-    fun append(value: T): one.linkedlist.SinglyLinkedList<T> =
+    fun append(value: T): SinglyLinkedList<T> =
         apply {
             if (isEmpty()) {
                 push(value)
             } else {
-                val newNode = one.linkedlist.SinglyNode(value = value)
+                val newNode = SinglyNode(value = value)
                 tail?.next = newNode
                 tail = newNode
                 size++
             }
         }
 
-    fun nodeAt(index: Int): one.linkedlist.SinglyNode<T>? {
+    fun nodeAt(index: Int): SinglyNode<T>? {
         var currentNode = head
         var currentIndex = 0
 
@@ -51,22 +51,22 @@ class SinglyLinkedList<T : Any>() {
 
     fun insertAfter(
         value: T,
-        node: one.linkedlist.SinglyNode<T>,
-    ): one.linkedlist.SinglyLinkedList<T> =
+        node: SinglyNode<T>,
+    ): SinglyLinkedList<T> =
         apply {
             if (node == tail) {
                 append(value)
                 return@apply
             }
-            val newNode = one.linkedlist.SinglyNode(value = value, next = node.next)
+            val newNode = SinglyNode(value = value, next = node.next)
             node.next = newNode
             size++
         }
 
     fun insertBefore(
         value: T,
-        node: one.linkedlist.SinglyNode<T>,
-    ): one.linkedlist.SinglyLinkedList<T> =
+        node: SinglyNode<T>,
+    ): SinglyLinkedList<T> =
         apply {
             if (node == head) {
                 push(value)
@@ -82,7 +82,7 @@ class SinglyLinkedList<T : Any>() {
             }
 
             if (current == node) {
-                val newNode = one.linkedlist.SinglyNode(value = value, next = node)
+                val newNode = SinglyNode(value = value, next = node)
                 prev?.next = newNode
                 size++
             }
@@ -150,7 +150,7 @@ class SinglyLinkedList<T : Any>() {
         head?.printInReverse()
     }
 
-    fun removeDuplicates(): one.linkedlist.SinglyLinkedList<T> =
+    fun removeDuplicates(): SinglyLinkedList<T> =
         apply {
             if (isEmpty()) return@apply
 

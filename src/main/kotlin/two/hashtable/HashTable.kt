@@ -9,7 +9,7 @@ class HashTable<K, V>(
 
     private fun K.bucket() = table[hash(this)]
 
-    fun put(
+    operator fun set(
         key: K,
         value: V,
     ) {
@@ -25,7 +25,7 @@ class HashTable<K, V>(
         bucket.add(Pair(key, value))
     }
 
-    fun get(key: K): V? {
+    operator fun get(key: K): V? {
         val bucket = key.bucket()
 
         for (pair in bucket) {
